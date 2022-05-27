@@ -1,10 +1,10 @@
 ﻿namespace gamelib_backend.Infrastructure.Domain.DbSettings {
     public class PostgresDbSettings {
-        public string Host { get; set; }
-        public string Port { get; set; }
-        public string DbName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string Host { get; set; } = "localhost";
+        public string Port { get; set; } = "5433";
+        public string DbName { get; set; } = "postgres";
+        public string UserName { get; set; } = "postgres";
+        public string Password { get; set; } = "postgres";
 
         public string GetConnectionString() {
             var builder = new List<string>();
