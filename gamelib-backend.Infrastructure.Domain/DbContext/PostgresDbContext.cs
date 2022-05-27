@@ -12,8 +12,9 @@ namespace gamelib_backend.Infrastructure.Domain {
 
         protected readonly string connectionString;
 
-        public PostgresDbContext(PostgresDbSettings settings) {
-            connectionString = settings.GetConnectionString();
+        public PostgresDbContext(PostgresDbSettings settings = default) {
+            var foo = settings ?? new PostgresDbSettings();
+            connectionString = PostgresDbSettings.GetConnectionString(foo);
             Database.Migrate();
         }
 

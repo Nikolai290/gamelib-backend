@@ -6,13 +6,13 @@
         public string UserName { get; set; } = "postgres";
         public string Password { get; set; } = "postgres";
 
-        public string GetConnectionString() {
+        public static string GetConnectionString(PostgresDbSettings instance) {
             var builder = new List<string>();
-            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST") ?? Host);
-            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT") ?? Port);
-            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME") ?? DbName);
-            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME") ?? UserName);
-            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD") ?? Password);
+            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST") ?? instance.Host);
+            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT") ?? instance.Port);
+            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME") ?? instance.DbName);
+            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME") ?? instance.UserName);
+            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD") ?? instance.Password);
             
             var connectionString = string.Join(';', builder);
             

@@ -1,3 +1,8 @@
+using gamelib_backend.Domain.Interfaces;
+using gamelib_backend.Infrastructure.Business.AutomapperProfiles;
+using gamelib_backend.Infrastructure.Domain;
+using gamelib_backend.IoC;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,12 +12,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// IoC
+builder.Services.AddDbContext<IDbContext, PostgresDbContext>();
+builder.Services.AddAutoMapper(
+        typeof(CompanyMappingProfile),
+        typeof(GameMappingProfile),
+        typeof(GenreMappingProfile)
+    );
+builder.Services.ConfigureRepository();
+builder.Services.ConfigureService();
+builder.Services.ConfigureValidation();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }

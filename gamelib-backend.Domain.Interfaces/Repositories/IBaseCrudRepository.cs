@@ -2,12 +2,13 @@
 
 namespace gamelib_backend.Domain.Interfaces.Repositories {
     public interface IBaseCrudRepository<TEntity, TId> where TEntity : DbEntity<TId> {
-        public Task<TEntity> GetByIdAsync(TId id);
-        public Task<IList<TEntity>> GetAllAsync();
-        public Task CreateAsync(TEntity entity);
-        public Task CreateRangeAsync(IEnumerable<TEntity> entities);
-        public Task UpdateAsync(TEntity entity);
-        public Task UpdateRangeAsync(IEnumerable<TEntity> entities);
-        public Task DeleteAsync(TId id);
+        Task<TEntity> GetByIdAsync(TId id);
+        Task<IList<TEntity>> GetAllAsync();
+        Task CreateAsync(TEntity entity);
+        Task CreateRangeAsync(IEnumerable<TEntity> entities);
+        Task UpdateAsync(TEntity entity);
+        Task UpdateRangeAsync(IEnumerable<TEntity> entities);
+        Task DeleteAsync(TId id);
+        Task<IList<TEntity>> GetByIdsAsync(TId[] ids);
     }
 }

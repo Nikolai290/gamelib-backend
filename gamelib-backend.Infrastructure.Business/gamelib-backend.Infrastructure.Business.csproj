@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>gamelib_backend.Infrastructure.Business</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gamelib-backend.Business.Dtos\gamelib-backend.Business.Dtos.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Business.Interfaces\gamelib-backend.Business.Interfaces.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Domain.Core\gamelib-backend.Domain.Core.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Domain.Interfaces\gamelib-backend.Domain.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>

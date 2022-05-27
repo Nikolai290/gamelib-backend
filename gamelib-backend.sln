@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gamelib-backend.Business.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gamelib-backend.Infrastructure.Domain", "gamelib-backend.Infrastructure.Domain\gamelib-backend.Infrastructure.Domain.csproj", "{88D8F02F-577B-47EC-8275-6855176DAC97}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gamelib-backend.Infrastructure.Business", "gamelib-backend.Infrastructure.Business\gamelib-backend.Infrastructure.Business.csproj", "{C6B98B6B-3968-46F7-BB98-E0AECFC30007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{88D8F02F-577B-47EC-8275-6855176DAC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88D8F02F-577B-47EC-8275-6855176DAC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88D8F02F-577B-47EC-8275-6855176DAC97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B98B6B-3968-46F7-BB98-E0AECFC30007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B98B6B-3968-46F7-BB98-E0AECFC30007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B98B6B-3968-46F7-BB98-E0AECFC30007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B98B6B-3968-46F7-BB98-E0AECFC30007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

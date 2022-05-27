@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace gamelib_backend.Infrastructure.Domain.Repositories {
     public class BaseCrudRepository<TEntity, TId> : IBaseCrudRepository<TEntity, TId> where TEntity : DbEntity<TId> {
 
-        protected readonly IDbContext dbContext;
+        private readonly IDbContext dbContext;
         private readonly DbContext _dbContext;
 
         public BaseCrudRepository(IDbContext dbContext) {
@@ -14,31 +14,32 @@ namespace gamelib_backend.Infrastructure.Domain.Repositories {
             this._dbContext = (DbContext)dbContext;
         }
 
-        public async Task CreateAsync(TEntity entity) {
+        public virtual async Task CreateAsync(TEntity entity) {
             await _dbContext
                 .Set<TEntity>()
                 .AddAsync(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task CreateRangeAsync(IEnumerable<TEntity> entities) {
+        public virtual async Task CreateRangeAsync(IEnumerable<TEntity> entities) {
             await _dbContext
                 .Set<TEntity>()
                 .AddRangeAsync(entities);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(TId id) {
+        public virtual async Task DeleteAsync(TId id) {
             var entity = await GetByIdAsync(id);
+            _dbContext.Set<TEntity>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IList<TEntity>> GetAllAsync() {
+        public virtual async Task<IList<TEntity>> GetAllAsync() {
             var entities = await _dbContext.Set<TEntity>().ToListAsync();
             return entities;
         }
 
-        public async Task<TEntity> GetByIdAsync(TId id) {
+        public virtual async Task<TEntity> GetByIdAsync(TId id) {
             var entity = await _dbContext
                .Set<TEntity>()
                .Where(x => !x.IsDeleted)
@@ -46,12 +47,22 @@ namespace gamelib_backend.Infrastructure.Domain.Repositories {
             return entity;
         }
 
-        public async Task UpdateAsync(TEntity entity) {
+        public virtual async Task<IList<TEntity>> GetByIdsAsync(TId[] ids) {
+            var entities = await _dbContext
+               .Set<TEntity>()
+               .Where(x => !x.IsDeleted)
+               .Where(x => ids.Contains(x.Id))
+               .ToListAsync();
+            return entities;
+        }
+
+
+        public virtual async Task UpdateAsync(TEntity entity) {
             _dbContext.Set<TEntity>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateRangeAsync(IEnumerable<TEntity> entities) {
+        public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities) {
             _dbContext
                 .Set<TEntity>()
                 .UpdateRange(entities);
