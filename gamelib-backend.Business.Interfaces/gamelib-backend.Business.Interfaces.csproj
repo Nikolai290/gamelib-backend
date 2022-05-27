@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>gamelib_backend.Business.Interfaces</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gamelib-backend.Business.Dtos\gamelib-backend.Business.Dtos.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Domain.Core\gamelib-backend.Domain.Core.csproj" />
+  </ItemGroup>
+
+</Project>

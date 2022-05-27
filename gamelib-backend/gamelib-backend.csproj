@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>gamelib_backend</RootNamespace>
+    <UserSecretsId>72ac3aa6-0c8e-4649-9b67-ebd3afbe6f77</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\gamelib-backend.Business.Dtos\gamelib-backend.Business.Dtos.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Business.Interfaces\gamelib-backend.Business.Interfaces.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Domain.Core\gamelib-backend.Domain.Core.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Domain.Interfaces\gamelib-backend.Domain.Interfaces.csproj" />
+    <ProjectReference Include="..\gamelib-backend.Infrastructure.Domain\gamelib-backend.Infrastructure.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
