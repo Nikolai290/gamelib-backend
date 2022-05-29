@@ -3,16 +3,16 @@
         public string Host { get; set; } = "localhost";
         public string Port { get; set; } = "5433";
         public string DbName { get; set; } = "postgres";
-        public string UserName { get; set; } = "postgres";
+        public string Username { get; set; } = "postgres";
         public string Password { get; set; } = "postgres";
 
-        public static string GetConnectionString(PostgresDbSettings instance) {
+        public string GetConnectionString() {
             var builder = new List<string>();
-            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST") ?? instance.Host);
-            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT") ?? instance.Port);
-            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME") ?? instance.DbName);
-            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME") ?? instance.UserName);
-            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD") ?? instance.Password);
+            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST") ?? Host);
+            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT") ?? Port);
+            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME") ?? DbName);
+            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME") ?? Username);
+            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD") ?? Password);
             
             var connectionString = string.Join(';', builder);
             

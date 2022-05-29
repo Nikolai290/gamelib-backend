@@ -2,6 +2,7 @@
 using gamelib_backend.Domain.Interfaces;
 using gamelib_backend.Infrastructure.Domain.DbSettings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace gamelib_backend.Infrastructure.Domain {
@@ -11,10 +12,11 @@ namespace gamelib_backend.Infrastructure.Domain {
         public DbSet<Company> Companies { get; set; }
 
         protected readonly string connectionString;
+        protected readonly PostgresDbSettings settings;
 
-        public PostgresDbContext(PostgresDbSettings settings = default) {
-            var foo = settings ?? new PostgresDbSettings();
-            connectionString = PostgresDbSettings.GetConnectionString(foo);
+        public PostgresDbContext(IOptions<PostgresDbSettings> options) {
+            this.settings = options.Value;
+            connectionString = settings.GetConnectionString();
             Database.Migrate();
         }
 
