@@ -16,6 +16,9 @@ cd gamelib-backend
 docker-compose up
 ```
 
-Go to URL http://localhost:1984/swagger
+Go to URL http://localhost:1984/swagger\
+Run any http request for initial database. \
+Try create, update or delete some entries through REST API.
 
-Run any http request for initial database
+For check database open Adminer on http://localhost:8181\
+And use credentials from docker-compose file.
