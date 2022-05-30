@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: Gjhyjabkmvs
     ports:
       - 5435:5432
+    volumes:
+      - db:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -17,15 +19,17 @@ services:
     ports:
       - 8181:8080
   
-  # backend:
-  #   build: .
-  #   restart: always
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - DB_HOST=db
-  #     - DB_PORT=5432
-  #     - DB_NAME=gamelib
-  #     - DB_USERNAME=postgres
-  #     - DB_PASSWORD=Gjhyjabkmvs
-  #   ports:
-  #     - 1984:80
+  backend:
+    build: .
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=gamelib
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=Gjhyjabkmvs
+    ports:
+      - 1984:80
+volumes:
+  db:

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace gamelib_backend.Infrastructure.Domain.Repositories {
     public class BaseCrudRepository<TEntity, TId> : IBaseCrudRepository<TEntity, TId> where TEntity : DbEntity<TId> {
 
-        private readonly IDbContext dbContext;
+        protected readonly IDbContext dbContext;
         private readonly DbContext _dbContext;
 
         public BaseCrudRepository(IDbContext dbContext) {

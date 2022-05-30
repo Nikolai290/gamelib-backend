@@ -23,6 +23,7 @@ namespace gamelib_backend.Infrastructure.Domain {
             this.settings = options.Value;
             connectionString = GetConnectionString();
             Database.Migrate();
+            DatabaseInit.Init(this);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
