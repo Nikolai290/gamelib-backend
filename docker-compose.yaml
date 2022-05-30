@@ -28,6 +28,7 @@ services:
       - DB_NAME=gamelib
       - DB_USERNAME=postgres
       - DB_PASSWORD=Gjhyjabkmvs
+      - BASE_INIT_DATABASE=true # if "true", then database will be init
     ports:
       - 1984:80
 volumes:
