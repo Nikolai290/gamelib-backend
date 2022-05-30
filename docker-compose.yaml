@@ -1,0 +1,31 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Gjhyjabkmvs
+    ports:
+      - 5435:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8181:8080
+  
+  # backend:
+  #   build: .
+  #   restart: always
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - DB_HOST=db
+  #     - DB_PORT=5432
+  #     - DB_NAME=gamelib
+  #     - DB_USERNAME=postgres
+  #     - DB_PASSWORD=Gjhyjabkmvs
+  #   ports:
+  #     - 1984:80

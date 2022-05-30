@@ -30,7 +30,9 @@ namespace gamelib_backend.Infrastructure.Business.Services {
         public async Task<CompanyOutDto> CreateAsync(CreateCompanyDto createDto) {
             await createValidator.ValidateAndThrowAsync(createDto);
             var company = mapper.Map<Company>(createDto);
-            company.Games = await gameRepository.GetByIdsAsync(createDto.GameIds.ToArray());
+            if (createDto.GameIds != null && createDto.GameIds.Count() > 0) {
+                company.Games = await gameRepository.GetByIdsAsync(createDto.GameIds.ToArray());
+            }
             await companyRepository.CreateAsync(company);
             var outDto = mapper.Map<CompanyOutDto>(company);
             return outDto;
@@ -47,8 +49,10 @@ namespace gamelib_backend.Infrastructure.Business.Services {
             var companies = await companyRepository.GetAllAsync();
             var result = companies
                 .Where(x => requestDto.Id.HasValue ? x.Id == requestDto.Id : true)
-                .Where(x => !string.IsNullOrEmpty(requestDto.Name) ? requestDto.Name.ToLower().Contains(x.Name.ToLower()) : true)
-                .Where(x => requestDto.GameIds !=null && requestDto.GameIds.Count > 0
+                .Where(x => !string.IsNullOrEmpty(requestDto.Name)
+                    ? requestDto.Name.ToLower().Contains(x.Name.ToLower())
+                    : true)
+                .Where(x => requestDto.GameIds != null && requestDto.GameIds.Count > 0
                     ? requestDto.GameIds.Except(x.Games.Select(game => game.Id)).Count() == 0
                     : true);
             var outDtos = mapper.Map<IList<CompanyOutDto>>(result);
@@ -64,7 +68,7 @@ namespace gamelib_backend.Infrastructure.Business.Services {
             var company = await companyRepository.GetByIdAsync(updateDto.Id);
             mapper.Map(updateDto, company);
 
-            if(!updateDto.GameIds.Equals(company.Games.Select(x=> x.Id))) {
+            if (!updateDto.GameIds.Equals(company.Games.Select(x => x.Id))) {
                 company.Games.Clear();
                 company.Games = await gameRepository.GetByIdsAsync(updateDto.GameIds.ToArray());
             }

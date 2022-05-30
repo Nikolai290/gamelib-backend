@@ -8,14 +8,15 @@
 
         public string GetConnectionString() {
             var builder = new List<string>();
-            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST") ?? Host);
-            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT") ?? Port);
-            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME") ?? DbName);
-            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME") ?? Username);
-            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD") ?? Password);
-            
+
+            builder.Add("Host=" + Host);
+            builder.Add("Port=" + Port);
+            builder.Add("Database=" + DbName);
+            builder.Add("Username=" + Username);
+            builder.Add("Password=" + Password);
+
             var connectionString = string.Join(';', builder);
-            
+
             return connectionString;
         }
     }

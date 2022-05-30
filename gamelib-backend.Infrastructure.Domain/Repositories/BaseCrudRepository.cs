@@ -48,6 +48,9 @@ namespace gamelib_backend.Infrastructure.Domain.Repositories {
         }
 
         public virtual async Task<IList<TEntity>> GetByIdsAsync(TId[] ids) {
+            if (ids.Length == 0) {
+                return new List<TEntity>();
+            }
             var entities = await _dbContext
                .Set<TEntity>()
                .Where(x => !x.IsDeleted)

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gamelib_backend.Controllers {
     [ApiController]
     [Route("[controller]")]
-    public class BaseCrudController<TEntity, TId, TRequestDto, TOutDto, TCreateDto, TUpdateDto> 
+    public class BaseCrudController<TEntity, TId, TRequestDto, TOutDto, TCreateDto, TUpdateDto>
         : ControllerBase {
 
 
@@ -49,7 +49,7 @@ namespace gamelib_backend.Controllers {
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult> DeleteAsync([FromRoute] TId id) {
             try {
-                 await service.DeleteAsync(id);
+                await service.DeleteAsync(id);
                 return Ok();
             } catch (Exception e) {
                 return BadRequest(e);

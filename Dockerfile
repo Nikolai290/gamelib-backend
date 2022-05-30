@@ -6,7 +6,7 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /src
-COPY ["gamelib-backend/gamelib-backend.csproj", "gamelib-backend/"]
+COPY ["./gamelib-backend/gamelib-backend.csproj", "gamelib-backend/"]
 RUN dotnet restore "gamelib-backend/gamelib-backend.csproj"
 COPY . .
 WORKDIR "/src/gamelib-backend"

@@ -14,9 +14,14 @@ namespace gamelib_backend.Infrastructure.Domain {
         protected readonly string connectionString;
         protected readonly PostgresDbSettings settings;
 
-        public PostgresDbContext(IOptions<PostgresDbSettings> options) {
+        public PostgresDbContext() {
+            connectionString = "Host=localhost;Port=5435;Database=gamelib;Username=postgres;Password=Gjhyjabkmvs";
+        }
+        public PostgresDbContext(
+            IOptions<PostgresDbSettings> options
+        ) {
             this.settings = options.Value;
-            connectionString = settings.GetConnectionString();
+            connectionString = GetConnectionString();
             Database.Migrate();
         }
 
@@ -29,6 +34,24 @@ namespace gamelib_backend.Infrastructure.Domain {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        private string GetConnectionString() {
+            var envHost = Environment.GetEnvironmentVariable("DB_HOST");
+            return string.IsNullOrEmpty(envHost)
+                ? settings.GetConnectionString()
+                : GetConnectionStringFromEnv();
+        }
+
+        private static string GetConnectionStringFromEnv() {
+            var builder = new List<string>();
+            builder.Add("Host=" + Environment.GetEnvironmentVariable("DB_HOST"));
+            builder.Add("Port=" + Environment.GetEnvironmentVariable("DB_PORT"));
+            builder.Add("Database=" + Environment.GetEnvironmentVariable("DB_NAME"));
+            builder.Add("Username=" + Environment.GetEnvironmentVariable("DB_USERNAME"));
+            builder.Add("Password=" + Environment.GetEnvironmentVariable("DB_PASSWORD"));
+
+            return string.Join(';', builder);
         }
     }
 }
