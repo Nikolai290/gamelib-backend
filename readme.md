@@ -1,6 +1,6 @@
 ### Test task "Game Library"
 
-Backend for app, have 3 REST API Controllers for next enitites:
+Backend for app, have 3 REST API Controllers for next entities:
 
 - Company
 - Genre
