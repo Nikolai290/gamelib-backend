@@ -4,6 +4,8 @@ using gamelib_backend.Business.Dtos;
 using gamelib_backend.Business.Interfaces.Services;
 using gamelib_backend.Domain.Core.DbEntities;
 using gamelib_backend.Domain.Interfaces.Repositories;
+using Microsoft.Extensions.Logging;
+
 namespace gamelib_backend.Infrastructure.Business.Services {
     public class CompanyService : ICompanyService {
 
@@ -12,19 +14,22 @@ namespace gamelib_backend.Infrastructure.Business.Services {
         private readonly IValidator<CreateCompanyDto> createValidator;
         private readonly IValidator<UpdateCompanyDto> updateValidator;
         private readonly IMapper mapper;
+        private readonly ILogger<CompanyService> logger;
 
         public CompanyService(
             ICompanyRepository companyRepository,
             IGameRepository gameRepository,
             IValidator<CreateCompanyDto> createValidator,
             IValidator<UpdateCompanyDto> updateValidator,
-            IMapper mapper
+            IMapper mapper,
+            ILogger<CompanyService> logger
         ) {
             this.companyRepository = companyRepository;
             this.gameRepository = gameRepository;
             this.createValidator = createValidator;
             this.updateValidator = updateValidator;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         public async Task<CompanyOutDto> CreateAsync(CreateCompanyDto createDto) {
@@ -35,6 +40,7 @@ namespace gamelib_backend.Infrastructure.Business.Services {
             }
             await companyRepository.CreateAsync(company);
             var outDto = mapper.Map<CompanyOutDto>(company);
+            logger.LogInformation("created company id="+outDto.Id);
             return outDto;
         }
 
@@ -56,6 +62,7 @@ namespace gamelib_backend.Infrastructure.Business.Services {
                     ? requestDto.GameIds.Except(x.Games.Select(game => game.Id)).Count() == 0
                     : true);
             var outDtos = mapper.Map<IList<CompanyOutDto>>(result);
+            logger.LogInformation("Return all company");
             return outDtos;
         }
 
