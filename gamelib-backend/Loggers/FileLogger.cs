@@ -3,7 +3,10 @@ namespace gamelib_backend.Loggers;
 public class FileLogger : ILogger, IDisposable {
 
     private string filePath;
-
+    private string file => string
+        .Copy(filePath)
+        .Replace("datetime", DateTime.Now.ToString("yyyyMMddHH"));
+    
     private static object _lock = new object();
 
     public FileLogger(string path) {
@@ -28,18 +31,21 @@ public class FileLogger : ILogger, IDisposable {
     ) {
         lock (_lock) {
             var path = Path.GetDirectoryName(filePath);
-            var file = Path.GetFileName(filePath);
             
-            Console.WriteLine(path);
+            Console.WriteLine(file);
 
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(filePath);
             }
             
-            // if (!File.Exists(filePath)) {
-            //     File.CreateText(filePath);
-            // }
-            File.AppendAllText(filePath, formatter(state, exception) + Environment.NewLine);
+            if (!File.Exists(file)) {
+                File.CreateText(file);
+            }
+            
+            File.AppendAllText(
+                file, 
+                formatter(state, exception) + Environment.NewLine
+            );
         }
     }
 

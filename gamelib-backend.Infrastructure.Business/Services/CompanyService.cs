@@ -49,6 +49,8 @@ namespace gamelib_backend.Infrastructure.Business.Services {
             company.Games.Clear();
             company.IsDeleted = true;
             await companyRepository.UpdateAsync(company);
+            logger.LogInformation("deleted company id="+id);
+
         }
 
         public async Task<IList<CompanyOutDto>> GetAllByAsync(RequestCompanyDto requestDto) {
@@ -82,6 +84,7 @@ namespace gamelib_backend.Infrastructure.Business.Services {
 
             await companyRepository.UpdateAsync(company);
             var outDto = mapper.Map<CompanyOutDto>(company);
+            logger.LogInformation("updated company id="+outDto.Id);
             return outDto;
         }
     }
