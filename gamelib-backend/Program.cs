@@ -3,8 +3,12 @@ using gamelib_backend.Infrastructure.Business.AutomapperProfiles;
 using gamelib_backend.Infrastructure.Domain;
 using gamelib_backend.Infrastructure.Domain.DbSettings;
 using gamelib_backend.IoC;
+using gamelib_backend.Loggers;
 
 internal class Program {
+
+    private static string logsPath = "./logs/log-datetime.txt";
+    
     private static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +33,8 @@ internal class Program {
         builder.Services.ConfigureRepository();
         builder.Services.ConfigureService();
         builder.Services.ConfigureValidation();
-
+        builder.Services.AddLogging();
+        builder.Logging.AddFile(logsPath);
 
         var app = builder.Build();
 
@@ -39,6 +44,7 @@ internal class Program {
             app.UseSwaggerUI();
         }
 
+        app.UseHttpLogging();
         app.UseHttpsRedirection();
 
         app.UseAuthorization();

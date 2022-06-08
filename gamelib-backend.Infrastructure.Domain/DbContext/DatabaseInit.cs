@@ -1,7 +1,6 @@
 using gamelib_backend.Domain.Core.DbEntities;
 using gamelib_backend.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
 namespace gamelib_backend.Infrastructure.Domain {
 
     public static class DatabaseInit {
@@ -80,6 +79,5 @@ namespace gamelib_backend.Infrastructure.Domain {
                 ((DbContext)dbContext).SaveChanges();
             }
         }
-
     }
 }
